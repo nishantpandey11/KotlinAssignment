@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">KotlinAssignmentApp</string>
+    <string name="todo_list">Todo List</string>
+    <string name="title">Title :  %s</string>
+    <string name="comp">Status : Completed</string>
+    <string name="not_comp">Status : Not Completed</string>
+
+</resources>

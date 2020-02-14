@@ -37,5 +37,9 @@ class MainActivity : AppCompatActivity() {
             todoListAdapter.submitList(it)
         })
 
+        viewModel.networkState.observe(this, Observer {
+            todoListAdapter.networkState = it
+        })
+
     }
 }

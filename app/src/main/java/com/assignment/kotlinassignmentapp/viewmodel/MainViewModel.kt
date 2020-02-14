@@ -9,13 +9,18 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(todoListRepository: TodoListRepository) :
+class MainViewModel @Inject constructor(val todoListRepository: TodoListRepository) :
     ViewModel() {
 
     var todoListData: MutableLiveData<List<TodoModel>> = MutableLiveData()
     var networkState: MutableLiveData<NetworkState> = MutableLiveData()
 
+
     init {
+        getTodoList()
+    }
+
+    fun getTodoList() {
         networkState.value = NetworkState.START
         todoListRepository.getTodoList().subscribe(object : Observer<List<TodoModel>> {
             override fun onComplete() {
@@ -26,17 +31,14 @@ class MainViewModel @Inject constructor(todoListRepository: TodoListRepository) 
             }
 
             override fun onNext(value: List<TodoModel>?) {
-                networkState.value = NetworkState.SUCCESS
-                todoListData.value = value
+                networkState.postValue(NetworkState.SUCCESS)
+                todoListData.postValue(value)
             }
 
             override fun onError(e: Throwable?) {
                 networkState.postValue(NetworkState.ERROR)
-
             }
 
         })
-
-
     }
 }

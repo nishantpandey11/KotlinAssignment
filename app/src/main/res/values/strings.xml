@@ -4,6 +4,8 @@
     <string name="title">Title :  %s</string>
     <string name="comp">Status : Completed</string>
     <string name="not_comp">Status : Not Completed</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
+    <string name="error_msg"><b>Something went wrong</b>\n\nGive it another try\n\n<font color='#00BFFF'>RELOAD</font></string>
+
 
 </resources>

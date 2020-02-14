@@ -39,18 +39,25 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.networkState.observe(this, Observer {
-            if (it == NetworkState.START) {
-                mainBinding.recyclerView.visibility = View.GONE
-                mainBinding.errorMsg.visibility = View.VISIBLE
-                mainBinding.errorMsg.text = "Loading......."
-            } else if (it == NetworkState.SUCCESS) {
-                mainBinding.recyclerView.visibility = View.VISIBLE
-                mainBinding.errorMsg.visibility = View.GONE
-            } else if (it == NetworkState.ERROR) {
-                mainBinding.recyclerView.visibility = View.GONE
-                mainBinding.errorMsg.visibility = View.VISIBLE
-                mainBinding.errorMsg.text = "Something went wrong"
+
+            when (it) {
+                NetworkState.START -> {
+                    mainBinding.recyclerView.visibility = View.GONE
+                    mainBinding.errorMsg.visibility = View.VISIBLE
+                    mainBinding.errorMsg.text = getString(R.string.loading)
+                }
+                NetworkState.SUCCESS -> {
+                    mainBinding.recyclerView.visibility = View.VISIBLE
+                    mainBinding.errorMsg.visibility = View.GONE
+                }
+                NetworkState.ERROR -> {
+                    mainBinding.recyclerView.visibility = View.GONE
+                    mainBinding.errorMsg.visibility = View.VISIBLE
+                    mainBinding.errorMsg.text = (getString(R.string.error_msg))
+                    mainBinding.errorMsg.setOnClickListener { viewModel.getTodoList() }
+                }
             }
+
         })
 
     }

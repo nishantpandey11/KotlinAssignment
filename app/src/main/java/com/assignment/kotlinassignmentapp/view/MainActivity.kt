@@ -1,13 +1,14 @@
 package com.assignment.kotlinassignmentapp.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.assignment.kotlinassignmentapp.R
 import com.assignment.kotlinassignmentapp.TodoApp
+import com.assignment.kotlinassignmentapp.data.model.NetworkState
 import com.assignment.kotlinassignmentapp.databinding.ActivityMainBinding
 import com.assignment.kotlinassignmentapp.view.adapter.TodoListAdapter
 import com.assignment.kotlinassignmentapp.viewmodel.MainViewModel
@@ -35,6 +36,21 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.todoListData.observe(this, Observer {
             todoListAdapter.submitList(it)
+        })
+
+        viewModel.networkState.observe(this, Observer {
+            if (it == NetworkState.START) {
+                mainBinding.recyclerView.visibility = View.GONE
+                mainBinding.errorMsg.visibility = View.VISIBLE
+                mainBinding.errorMsg.text = "Loading......."
+            } else if (it == NetworkState.SUCCESS) {
+                mainBinding.recyclerView.visibility = View.VISIBLE
+                mainBinding.errorMsg.visibility = View.GONE
+            } else if (it == NetworkState.ERROR) {
+                mainBinding.recyclerView.visibility = View.GONE
+                mainBinding.errorMsg.visibility = View.VISIBLE
+                mainBinding.errorMsg.text = "Something went wrong"
+            }
         })
 
     }

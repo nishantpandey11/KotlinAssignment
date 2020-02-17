@@ -9,7 +9,7 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(val todoListRepository: TodoListRepository) :
+class MainViewModel @Inject constructor(private val todoListRepository: TodoListRepository) :
     ViewModel() {
 
     var todoListData: MutableLiveData<List<TodoModel>> = MutableLiveData()

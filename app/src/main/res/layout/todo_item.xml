@@ -2,10 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-    <variable
-        name="viewModel"
-        type="com.assignment.kotlinassignmentapp.data.model.TodoModel" />
+
+        <variable
+            name="viewModel"
+            type="com.assignment.kotlinassignmentapp.data.model.TodoModel" />
     </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_medium"
                 android:text="@{String.format(@string/title,viewModel.title)}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tv_status"
@@ -33,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_medium"
                 android:text="@{viewModel.completed ? @string/comp: @string/not_comp}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 

@@ -18,6 +18,6 @@ class AppModule {
     fun provideContext(application: Application): Context = application
 
     @Provides
-    fun provideViewModelFactory(factory:ViewModelFactory):ViewModelProvider.Factory = factory
+    fun provideViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory = factory
 
 }

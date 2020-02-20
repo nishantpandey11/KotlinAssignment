@@ -1,14 +1,12 @@
 package com.assignment.kotlinassignmentapp.di.module
 
-import com.assignment.kotlinassignmentapp.data.source.network.ApiInterface
 import com.assignment.kotlinassignmentapp.BuildConfig
+import com.assignment.kotlinassignmentapp.data.source.network.ApiInterface
 import dagger.Module
 import dagger.Provides
-import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -27,11 +25,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCallAdapter(): RxJava2CallAdapterFactory =
-        RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
-
-    @Provides
-    @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
@@ -43,16 +36,12 @@ class NetworkModule {
     @Singleton
     fun provideRetrofitInterface(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory,
-        callAdapterFactory: RxJava2CallAdapterFactory
+        gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(gsonConverterFactory)
-            .addCallAdapterFactory(callAdapterFactory)
             .client(okHttpClient)
             .build()
     }
-
-
 }

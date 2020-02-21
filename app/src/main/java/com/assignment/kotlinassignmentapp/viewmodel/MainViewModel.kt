@@ -25,8 +25,12 @@ class MainViewModel @Inject constructor(private val todoListRepository: TodoList
         viewModelScope.launch {
             try {
                 val result = todoListRepository.getTodo()
-                networkState.postValue(NetworkState.SUCCESS)
-                todoListData.postValue(result)
+                if (result.isSuccessful) {
+                    networkState.postValue(NetworkState.SUCCESS)
+                    todoListData.postValue(result.body())
+                } else {
+                    networkState.postValue(NetworkState.ERROR)
+                }
             } catch (e: Exception) {
                 networkState.postValue(NetworkState.ERROR)
             }
